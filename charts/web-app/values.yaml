@@ -45,7 +45,7 @@ service:
   port: 80
 
 ingressRoute:
-  enabled: true
+  enabled: false
   annotations: {}
   entrypoint:
     - web
