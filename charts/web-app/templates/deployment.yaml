@@ -51,7 +51,7 @@ spec:
             - name: {{ $key }}
               value: {{ printf "'%s'" $value }}
             {{- end }}
-          {{- end -}}
+          {{- end }}
           envFrom:
             {{- toYaml .Values.envFrom | nindent 12 }}
           resources:
