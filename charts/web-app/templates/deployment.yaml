@@ -45,11 +45,13 @@ spec:
             httpGet:
               path: /
               port: http
+          {{- if .Values.env -}}
           env:
             {{- range $key, $value := .Values.env }}
             - name: {{ $key }}
               value: {{ printf "'%s'" $value }}
             {{- end }}
+          {{- end -}}
           envFrom:
             {{- toYaml .Values.envFrom | nindent 12 }}
           resources:
