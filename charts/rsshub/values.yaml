@@ -1,0 +1,311 @@
+# Default values for rsshub.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: diygod/rsshub
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+global:
+  podAnnotations: {}
+  # -- Labels for the all deployed pods
+  podLabels: {}
+  # -- Toggle and define securityContext. See [values.yaml]
+  securityContext: {}
+  #  runAsUser: 999
+  #  runAsGroup: 999
+  #  fsGroup: 999
+
+  # -- If defined, uses a Secret to pull an image from a private Docker registry or repository
+  imagePullSecrets: []
+  # -- Mapping between IP and hostnames that will be injected as entries in the pod's hosts files
+  hostAliases: []
+  # - ip: 10.20.30.40
+  #   hostnames:
+  #   - git.myhostname
+
+  networkPolicy:
+    # -- Create NetworkPolicy objects for all components
+    create: false
+    # -- Default deny all ingress traffic
+    defaultDenyIngress: false
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+env:
+  NODE_ENV: production
+  # cache type redis/memory
+  CACHE_TYPE: redis
+  CACHE_EXPIRE: '300'
+  CACHE_CONTENT_EXPIRE: '60'
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+redis:
+  # -- Enable redis
+  enabled: true
+  # -- Redis name
+  name: redis
+
+  image:
+    # -- Redis repository
+    repository: redis
+    # -- Redis tag
+    tag: 7.0.7-alpine
+    # -- Redis imagePullPolicy
+    imagePullPolicy: IfNotPresent
+
+  # -- Additional command line arguments to pass to redis-server
+  extraArgs: []
+  # - --bind
+  # - "0.0.0.0"
+
+  # -- Redis container port
+  containerPort: 6379
+  # -- Redis service port
+  servicePort: 6379
+
+  networkPolicy:
+    # -- Create NetworkPolicy objects for all components
+    create: false
+    # -- Default deny all ingress traffic
+    defaultDenyIngress: false
+
+  # -- Environment variables to pass to the Redis server
+  env: []
+
+  # -- envFrom to pass to the Redis server
+  # @default -- `[]` (See [values.yaml])
+  envFrom: []
+  # - configMapRef:
+  #     name: config-map-name
+  # - secretRef:
+  #     name: secret-name
+
+  # -- Annotations to be added to the Redis server pods
+  podAnnotations: {}
+
+  # -- Labels to be added to the Redis server pods
+  podLabels: {}
+
+  # -- [Node selector]
+  nodeSelector: {}
+  # -- [Tolerations] for use with node taints
+  tolerations: []
+  # -- Assign custom [affinity] rules to the deployment
+  affinity: {}
+
+  # -- Assign custom [TopologySpreadConstraints] rules to redis
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  ## If labelSelector is left out, it will default to the labelSelector configuration of the deployment
+  topologySpreadConstraints: []
+  # - maxSkew: 1
+  #   topologyKey: topology.kubernetes.io/zone
+  #   whenUnsatisfiable: DoNotSchedule
+
+  # -- Priority class for redis
+  priorityClassName: ""
+
+  # -- Redis container-level security context
+  containerSecurityContext:
+    {}
+    # capabilities:
+    #   drop:
+  #     - all
+  # readOnlyRootFilesystem: true
+
+  # -- Redis pod-level security context
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 999
+
+  serviceAccount:
+    # -- Create a service account for the redis pod
+    create: false
+    # -- Service account name for redis pod
+    name: ""
+    # -- Annotations applied to created service account
+    annotations: {}
+    # -- Automount API credentials for the Service Account
+    automountServiceAccountToken: false
+
+  # -- Resource limits and requests for redis
+  resources: {}
+  #  limits:
+  #    cpu: 200m
+  #    memory: 128Mi
+  #  requests:
+  #    cpu: 100m
+  #    memory: 64Mi
+
+  # -- Additional volumeMounts to the redis container
+  volumeMounts: []
+  # -- Additional volumes to the redis pod
+  volumes: []
+
+  # -- Additional containers to be added to the redis pod
+  extraContainers: []
+
+  service:
+    # -- Redis service annotations
+    annotations: {}
+    # -- Additional redis service labels
+    labels: {}
+
+  metrics:
+    # -- Deploy metrics service and redis-exporter sidecar
+    enabled: false
+    image:
+      # -- redis-exporter image repository
+      repository: quay.io/bitnami/redis-exporter
+      # -- redis-exporter image tag
+      tag: 1.26.0-debian-10-r2
+      # -- redis-exporter image PullPolicy
+      imagePullPolicy: IfNotPresent
+    # -- Port to use for redis-exporter sidecar
+    containerPort: 9121
+    # -- Resource limits and requests for redis-exporter sidecar
+    resources: {}
+      # limits:
+      #   cpu: 50m
+      #   memory: 64Mi
+      # requests:
+    #   cpu: 10m
+    #   memory: 32Mi
+    service:
+      # -- Metrics service type
+      type: ClusterIP
+      # -- Metrics service clusterIP. `None` makes a "headless service" (no virtual IP)
+      clusterIP: None
+      # -- Metrics service annotations
+      annotations: {}
+      # -- Metrics service labels
+      labels: {}
+      # -- Metrics service port
+      servicePort: 9121
+      # -- Metrics service port name
+      portName: http-metrics
+    serviceMonitor:
+      # -- Enable a prometheus ServiceMonitor
+      enabled: false
+      # -- Interval at which metrics should be scraped
+      interval: 30s
+      # -- Prometheus [RelabelConfigs] to apply to samples before scraping
+      relabelings: []
+      # -- Prometheus [MetricRelabelConfigs] to apply to samples before ingestion
+      metricRelabelings: []
+      # -- Prometheus ServiceMonitor selector
+      selector: {}
+      # prometheus: kube-prometheus
+
+      # -- Prometheus ServiceMonitor namespace
+      namespace: "" # "monitoring"
+      # -- Prometheus ServiceMonitor labels
+      additionalLabels: {}
+
+puppeteer:
+  enabled: true
+  name: puppeteer
+  image:
+    repository: browserless/chrome
+    tag: 1.57-puppeteer-13.1.3
+    pullPolicy: IfNotPresent
+  # -- Puppeteer container port
+  containerPort: 3000
+  servicePort: 3000
+
+  podAnnotations: {}
+  podLabels: {}
+
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 999
+
+  service:
+    annotations: {}
+    labels: {}
+
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+    automountServiceAccountToken: false
+
+  resources: {}
+  #  limits:
+  #    cpu: 200m
+  #    memory: 128Mi
+  #  requests:
+  #    cpu: 100m
+  #    memory: 64Mi

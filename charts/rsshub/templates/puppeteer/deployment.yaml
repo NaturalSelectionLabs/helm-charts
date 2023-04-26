@@ -1,0 +1,96 @@
+{{- if .Values.puppeteer.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "rsshub.puppeteer.fullname" . }}
+  labels:
+    {{- include "rsshub.labels" . | nindent 4 }}
+    app.kubernetes.io/version: {{ .Values.puppeteer.image.tag | quote }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "rsshub.puppeteer.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with (mergeOverwrite (deepCopy .Values.global.podAnnotations) .Values.puppeteer.podAnnotations) }}
+      annotations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "rsshub.puppeteer.selectorLabels" . | nindent 8 }}
+        {{- with (mergeOverwrite (deepCopy .Values.global.podLabels) .Values.puppeteer.podLabels) }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    spec:
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      automountServiceAccountToken: {{ .Values.puppeteer.serviceAccount.automountServiceAccountToken }}
+      serviceAccountName: {{ template "rsshub.puppeteerServiceAccountName" . }}
+      {{- if .Values.puppeteer.securityContext }}
+      securityContext: {{- toYaml .Values.puppeteer.securityContext | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ template "rsshub.puppeteer.fullname" . }}
+          {{- with .Values.puppeteer.extraArgs }}
+          {{- . | toYaml | nindent 8 }}
+          {{- end }}
+          image: {{ .Values.puppeteer.image.repository }}:{{ .Values.puppeteer.image.tag }}
+          imagePullPolicy: {{ .Values.puppeteer.image.imagePullPolicy}}
+          {{- if .Values.puppeteer.containerSecurityContext }}
+          securityContext: {{- toYaml .Values.puppeteer.containerSecurityContext | nindent 10 }}
+          {{- end }}
+          {{- if .Values.puppeteer.env }}
+          env:
+          {{- toYaml .Values.puppeteer.env | nindent 8 }}
+          {{- end }}
+          {{- with .Values.puppeteer.envFrom }}
+          envFrom:
+          {{- toYaml . | nindent 8 }}
+          {{- end }}
+          ports:
+            - containerPort: {{ .Values.puppeteer.containerPort }}
+              name: puppeteer
+          {{- if .Values.puppeteer.volumeMounts }}
+          volumeMounts:
+          {{- toYaml .Values.puppeteer.volumeMounts | nindent 10 }}
+          {{- end }}
+          {{- if .Values.puppeteer.resources}}
+          resources:
+          {{- toYaml .Values.puppeteer.resources | nindent 10 }}
+          {{- end }}
+      {{- with .Values.puppeteer.extraContainers }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+      {{- if .Values.puppeteer.nodeSelector }}
+      nodeSelector:
+      {{- toYaml .Values.puppeteer.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.puppeteer.tolerations }}
+      tolerations:
+      {{- toYaml .Values.puppeteer.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.puppeteer.affinity }}
+      affinity:
+      {{- toYaml .Values.puppeteer.affinity | nindent 8 }}
+      {{- end }}
+      {{- with .Values.puppeteer.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- range $constraint := . }}
+        - {{ toYaml $constraint | nindent 8 | trim }}
+          {{- if not $constraint.labelSelector }}
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ include "rsshub.name" $ }}-{{ $.Values.puppeteer.name }}
+                                        {{- end }}
+                                        {{- end }}
+                                        {{- end }}
+      {{- if .Values.puppeteer.volumes }}
+      volumes:
+      {{- toYaml .Values.puppeteer.volumes | nindent 8}}
+      {{- end }}
+      {{- if .Values.puppeteer.priorityClassName }}
+      priorityClassName: {{ .Values.puppeteer.priorityClassName }}
+{{- end }}
+{{- end -}}
