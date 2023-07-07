@@ -4,6 +4,10 @@
 
 replicaCount: 1
 
+metadata:
+  team: team
+  project: ""
+
 image:
   repository: nginx
   pullPolicy: IfNotPresent
@@ -17,6 +21,10 @@ fullnameOverride: ""
 env: []
 
 envFrom: []
+# - configMapRef:
+#     name: config-map-name
+# - secretRef:
+#     name: secret-name
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -80,3 +88,13 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+livenessProbe: {}
+#  httpGet:
+#    path: /
+#    port: http
+
+readinessProbe: {}
+#  httpGet:
+#    path: /
+#    port: http
