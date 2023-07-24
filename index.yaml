@@ -14,6 +14,16 @@ entries:
   web-app:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-07-24T08:47:27.242526927Z"
+    description: A Helm chart for Kubernetes
+    digest: da7ed0bbdb846602b29db80cc5ee9948b4deaa8d120541f39c3199863ee2fda3
+    name: web-app
+    type: application
+    urls:
+    - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/web-app-0.1.3/web-app-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-07-24T08:26:11.253360741Z"
     description: A Helm chart for Kubernetes
     digest: 1faf1ce401cc959003a4cc3cfef147762a2c644bbbdda05cac4bdf7d5ab528ec
@@ -122,4 +132,4 @@ entries:
     urls:
     - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/web-app-0.0.1/web-app-0.0.1.tgz
     version: 0.0.1
-generated: "2023-07-24T08:26:11.253481941Z"
+generated: "2023-07-24T08:47:27.242576828Z"
