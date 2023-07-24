@@ -4,8 +4,14 @@
 
 replicaCount: 1
 
+# Workload Type Deployment/DaemonsSet/StatefulSet/Cronjob
+workloadType: Cronjob
+
+# Cronjob only
+schedule: "0 * * * *"
+
 metadata:
-  team: team
+  team: "team"
   project: ""
 
 image:
@@ -98,3 +104,5 @@ readinessProbe: {}
 #  httpGet:
 #    path: /
 #    port: http
+
+secrets:

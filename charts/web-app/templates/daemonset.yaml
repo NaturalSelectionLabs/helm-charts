@@ -1,14 +1,11 @@
-{{- if eq .Values.workloadType "Deployment" -}}
+{{- if eq .Values.workloadType "DaemonSet" -}}
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: {{ include "web-app.fullname" . }}
   labels:
     {{- include "web-app.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "web-app.selectorLabels" . | nindent 6 }}

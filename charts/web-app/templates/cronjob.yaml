@@ -1,0 +1,13 @@
+{{- if eq .Values.workloadType "CronJob" -}}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "web-app.fullname" . }}
+  labels:
+    {{- include "web-app.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.schedule }}
+  jobTemplate:
+    spec:
+      template: {{ template "web-app.podTemplate" . }}
+{{- end -}}
