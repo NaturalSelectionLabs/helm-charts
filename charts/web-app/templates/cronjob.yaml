@@ -9,5 +9,6 @@ spec:
   schedule: {{ .Values.schedule }}
   jobTemplate:
     spec:
-      template: {{ template "web-app.podTemplate" . }}
+      template:
+{{- include "web-app.podTemplate" . | nindent 4 }}
 {{- end -}}
