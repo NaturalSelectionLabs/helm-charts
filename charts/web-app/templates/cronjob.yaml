@@ -11,4 +11,5 @@ spec:
     spec:
       template:
 {{- include "web-app.podTemplate" . | nindent 4 }}
+{{- include "web-app.restartPolicy" . | nindent 10 }}
 {{- end -}}

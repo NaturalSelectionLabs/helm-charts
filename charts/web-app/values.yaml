@@ -4,11 +4,12 @@
 
 replicaCount: 1
 
-# Workload Type Deployment/DaemonsSet/StatefulSet/Cronjob
-workloadType: Deployment
+# Workload Type Deployment/DaemonsSet/StatefulSet/CronJob
+workloadType: CronJob
 
 # Cronjob only
 schedule: "0 * * * *"
+restartPolicy: "OnFailure"
 
 metadata:
   team: "team"
