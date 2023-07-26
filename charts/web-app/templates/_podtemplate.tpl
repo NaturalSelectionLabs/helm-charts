@@ -1,7 +1,8 @@
 {{- define "web-app.podTemplate" }}
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        {{- include "web-app.annotations" . |  nindent 8 }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -67,4 +68,4 @@
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-{{ end -}}
+{{- end -}}

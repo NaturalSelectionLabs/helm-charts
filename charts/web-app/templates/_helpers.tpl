@@ -39,6 +39,19 @@ Selector labels
 {{- /*app.kubernetes.io/name: {{ include "web-app.name" . }}*/ -}}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app: {{ .Release.Name }}
+{{- if .Values.org.team }}
+index.ai/team: {{ .Values.org.team }}
+{{- end -}}
+{{- if .Values.org.project }}
+index.ai/project: {{ .Values.org.project }}
+{{- end -}}
+{{- end }}
+
+{{/*
+Common annotations
+*/}}
+{{- define "web-app.annotations" -}}
+github.com/url: {{ .Values.repoUrl | quote }}
 {{- end }}
 
 {{/*

@@ -11,6 +11,7 @@ metadata:
     {{- with .Values.ingressRoute.annotations }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
+    {{- include "web-app.annotations" . |  nindent 4 }}
 spec:
   entryPoints:
   {{- range .Values.ingressRoute.entrypoint }}

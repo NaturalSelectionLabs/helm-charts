@@ -109,4 +109,8 @@ readinessProbe: {}
 #    path: /
 #    port: http
 
-secrets:
+repoUrl: ""
+
+org:
+  team: ""
+  project: ""
