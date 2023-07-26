@@ -5,7 +5,7 @@
 replicaCount: 1
 
 # Workload Type Deployment/DaemonsSet/StatefulSet/CronJob
-workloadType: CronJob
+workloadType: Deployment
 
 # Cronjob only
 schedule: "0 * * * *"
