@@ -123,3 +123,7 @@ repoUrl: ""
 org:
   team: ""
   project: ""
+
+vaultSecret:
+  destination: crossbell-f
+  path: crossbell/crossbell-f
