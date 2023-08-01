@@ -125,5 +125,5 @@ org:
   project: ""
 
 vaultSecret:
-  destination: crossbell-f
-  path: crossbell/crossbell-f
+  destination: ""
+  path: ""
