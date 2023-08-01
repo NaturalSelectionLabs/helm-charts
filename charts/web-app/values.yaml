@@ -2,10 +2,22 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
-
+workload:
 # Workload Type Deployment/DaemonsSet/StatefulSet/CronJob
-workloadType: Deployment
+  name: ""
+  type: Deployment
+  initContainers: [ ]
+  replicas: 1
+  command: [ ]
+  args: [ ]
+  deployment:
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 10
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
 
 # Cronjob only
 schedule: "0 * * * *"
@@ -24,9 +36,6 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
-command: []
-args: []
 
 env: []
 

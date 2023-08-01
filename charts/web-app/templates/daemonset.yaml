@@ -1,4 +1,4 @@
-{{- if eq .Values.workloadType "DaemonSet" -}}
+{{- if eq .Values.workload.type "DaemonSet" -}}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:

@@ -19,8 +19,8 @@ spec:
   {{- end }}
   routes:
   {{- range .Values.ingressRoute.routes }}
-    - match: {{ . }}
-      kind: Rule
+    - kind: Rule
+      match: {{ . }}
       services:
         - name: {{ $fullName }}
           port: {{ $svcPort }}

@@ -15,8 +15,12 @@
       serviceAccountName: {{ include "web-app.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.workload.initContainers }}
+      initContainers:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Values.workload.name | default .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -44,15 +48,15 @@
             {{- toYaml .Values.envFrom | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.command }}
+          {{- if .Values.workload.command }}
           command:
-          {{- range .Values.command }}
+          {{- range .Values.workload.command }}
             - {{ . | quote }}
           {{- end }}
           {{- end }}
-          {{- if .Values.args }}
+          {{- if .Values.workload.args }}
           args:
-          {{- range .Values.args }}
+          {{- range .Values.workload.args }}
             - {{ . | quote }}
           {{- end }}
           {{- end }}

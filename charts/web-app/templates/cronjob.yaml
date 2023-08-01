@@ -1,4 +1,4 @@
-{{- if eq .Values.workloadType "CronJob" -}}
+{{- if eq .Values.workload.type "CronJob" -}}
 apiVersion: batch/v1
 kind: CronJob
 metadata:

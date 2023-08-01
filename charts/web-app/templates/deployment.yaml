@@ -1,4 +1,4 @@
-{{- if eq .Values.workloadType "Deployment" -}}
+{{- if eq .Values.workload.type "Deployment" -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -9,8 +9,9 @@ metadata:
     {{- include "web-app.annotations" . |  nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: {{ .Values.workload.replicas }}
+  {{- end -}}
+  {{ toYaml .Values.workload.deployment | nindent 2 }}
   selector:
     matchLabels:
       {{- include "web-app.selectorLabels" . | nindent 6 }}
