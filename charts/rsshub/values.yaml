@@ -44,7 +44,7 @@ env:
   # cache type redis/memory
   CACHE_TYPE: redis
   CACHE_EXPIRE: '300'
-  CACHE_CONTENT_EXPIRE: '60'
+  CACHE_CONTENT_EXPIRE: '3600'
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -280,7 +280,7 @@ puppeteer:
   name: puppeteer
   image:
     repository: browserless/chrome
-    tag: 1.57-puppeteer-13.1.3
+    tag: 1.60.2-puppeteer-21.3.6
     pullPolicy: IfNotPresent
   # -- Puppeteer container port
   containerPort: 3000
