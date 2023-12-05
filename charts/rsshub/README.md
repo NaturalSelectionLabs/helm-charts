@@ -51,7 +51,7 @@ autoscaling:
 puppeteer:
   autoscaling:
     enabled: true
-    minReplicas: 2e
+    minReplicas: 2
 ```
 
 ## externalRedis
