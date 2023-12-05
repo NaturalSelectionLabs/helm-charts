@@ -5,6 +5,7 @@ metadata:
   name: {{ template "rsshub.puppeteer.fullname" . }}
   labels:
     {{- include "rsshub.labels" . | nindent 4 }}
+    {{- include "rsshub.puppeteer.selectorLabels" . | nindent 4 }}
     {{- with .Values.puppeteer.service.labels }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
