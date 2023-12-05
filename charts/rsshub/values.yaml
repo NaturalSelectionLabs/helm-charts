@@ -39,6 +39,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 env:
+  # More information in https://docs.rsshub.app/install/config
   NODE_ENV: production
   # cache type redis/memory
   CACHE_TYPE: redis
