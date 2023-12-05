@@ -1,0 +1,32 @@
+{{- if .Values.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "rsshub.puppeteer.fullname" . }}
+  labels:
+    {{- include "rsshub.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "rsshub.puppeteer.fullname" . }}
+  minReplicas: {{ .Values.puppeteer.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.puppeteer.autoscaling.maxReplicas }}
+  metrics:
+    {{- if .Values.puppeteer.autoscaling.targetCPUUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.puppeteer.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
+    {{- if .Values.puppeteer.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.puppeteer.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}

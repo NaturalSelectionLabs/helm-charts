@@ -2,11 +2,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "rsshub.puppeteer.fullname" . }}
+  name: {{ include "rsshub.puppeteer.fullname" . }}
   labels:
     {{- include "rsshub.labels" . | nindent 4 }}
     app.kubernetes.io/version: {{ .Values.puppeteer.image.tag | quote }}
 spec:
+  {{- if not .Values.puppeteer.autoscaling.enabled }}
+  replicas: {{ .Values.puppeteer.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "rsshub.puppeteer.selectorLabels" . | nindent 6 }}
