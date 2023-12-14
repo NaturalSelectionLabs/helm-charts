@@ -1,0 +1,6 @@
+dependencies:
+- name: rsshub
+  repository: https://naturalselectionlabs.github.io/helm-charts
+  version: 0.1.4
+digest: sha256:f351cda514a780c0e2b311478ebe0f50f3930855723aa39e19085c1b2f8c8b8b
+generated: "2023-12-14T20:13:29.70741+08:00"

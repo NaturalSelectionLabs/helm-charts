@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "rss3-node.fullname" . }}
+  labels:
+    {{- include "rss3-node.labels" (dict "context" . ) | nindent 4 }}
+  {{- if .Values.configs.annotations }}
+  annotations:
+  {{- range $key, $value := .Values.configs.annotations }}
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  {{- end }}
+data:
+  config.development.yaml: |
+    environment: {{ .Values.configs.environment }}
+    discovery:
+    {{- toYaml .Values.configs | nindent 6}}
+    component:
+      rss:
+    {{- toYaml .Values.additionalRSS | nindent 8}}
+      decentralized:
+    {{- toYaml .Values.indexers | nindent 8}}
+    database:
+    {{- toYaml .Values.database | nindent 6}}
