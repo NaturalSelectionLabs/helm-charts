@@ -14,7 +14,7 @@ data:
   config.development.yaml: |
     environment: {{ .Values.configs.environment }}
     discovery:
-    {{- toYaml .Values.configs | nindent 6}}
+    {{- toYaml .Values.configs.discovery | nindent 6}}
     component:
       rss:
     {{- toYaml .Values.additionalRSS | nindent 8}}
