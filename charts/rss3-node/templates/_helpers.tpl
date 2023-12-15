@@ -94,6 +94,52 @@ Create the name of the Argo CD server service account to use
 {{/*
 Create rss3-node indexer fullname
 */}}
-{{- define "rss3-node.indexer.fullname" -}}
-{{- printf "%s-%s-%s-%s" (include "rss3-node.fullname" .context) .network .chain .worker | trunc 63 | trimSuffix "-" -}}
+{{- define "rss3-node.indexer.name" -}}
+{{- printf "%s-%s-%s" .network .chain .worker | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Create rss3-node indexer fullname
+*/}}
+{{- define "rss3-node.indexer.fullname" -}}
+{{- printf "%s-%s" (include "rss3-node.fullname" .context) (include "rss3-node.indexer.name" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
+Indexer labels
+*/}}
+{{- define "rss3-node.indexer.labels" -}}
+helm.sh/chart: {{ include "rss3-node.chart" .context }}
+{{ include "rss3-node.indexer.selectorLabels" (dict "context" .context "component" .component "indexer" .indexer) }}
+{{- if .context.Chart.AppVersion }}
+app.kubernetes.io/version: {{ .context.Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .context.Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "rss3-node.indexer.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "rss3-node.name" .context }}-{{ include "rss3-node.indexer.name" .indexer }}
+app.kubernetes.io/instance: {{ .context.Release.Name }}
+{{- if .component }}
+app.kubernetes.io/component: {{ .component }}
+{{- end -}}
+{{ include "rss3-node.indexer.commonLabels" .indexer }}
+{{- end }}
+
+{{/*
+Common indexer labels
+*/}}
+{{- define "rss3-node.indexer.commonLabels" -}}
+{{- if .network }}
+node.rss3.io/network: {{ .network }}
+{{- end }}
+{{- if .chain }}
+node.rss3.io/chain: {{ .chain }}
+{{- end }}
+{{- if .worker }}
+node.rss3.io/worker: {{ .worker }}
+{{- end }}
+{{- end }}

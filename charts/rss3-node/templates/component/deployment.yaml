@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "rss3-node.selectorLabels" (dict "context" $ "component" $indexer.network "name" $.Values.hub.name) | nindent 6 }}
+      {{- include "rss3-node.indexer.selectorLabels" (dict "context" $ "indexer" $indexer "component" "indexer") | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -15,7 +15,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "rss3-node.labels" (dict "context" $ "component" $.Values.hub.name "name" $.Values.hub.name) | nindent 8 }}
+        {{- include "rss3-node.indexer.labels" (dict "context" $ "indexer" $indexer "component" "indexer") | nindent 8 }}
   {{- with $.Values.global.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
