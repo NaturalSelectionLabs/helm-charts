@@ -221,8 +221,7 @@ rsshub:
   enabled: false
 
 additionalRSS:
-  - network: rss
-    chain: rsshub
+  - network: rsshub
     endpoint: https://rsshub.app/
     parameters:
       authentication:
