@@ -3,6 +3,21 @@ entries:
   node:
   - apiVersion: v2
     appVersion: develop
+    created: "2023-12-18T09:38:39.363189433Z"
+    dependencies:
+    - condition: rsshub.enabled
+      name: rsshub
+      repository: https://naturalselectionlabs.github.io/helm-charts
+      version: 0.1.4
+    description: A Helm chart for Kubernetes
+    digest: 45e55a4c195b2a30defab0214211e97808fa11e7901eeb5dcbffe81186fa5ba9
+    name: node
+    type: application
+    urls:
+    - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/node-0.2.3/node-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
+    appVersion: develop
     created: "2023-12-18T05:29:47.952020282Z"
     dependencies:
     - condition: rsshub.enabled
@@ -378,4 +393,4 @@ entries:
     urls:
     - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/web-app-0.0.1/web-app-0.0.1.tgz
     version: 0.0.1
-generated: "2023-12-18T08:08:28.787617041Z"
+generated: "2023-12-18T09:38:39.363276766Z"
