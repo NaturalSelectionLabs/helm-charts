@@ -95,7 +95,7 @@ Create the name of the Argo CD server service account to use
 Create rss3-node indexer fullname
 */}}
 {{- define "rss3-node.indexer.name" -}}
-{{- printf "%s-%s-%s" .network .chain .worker | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .network .worker | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
