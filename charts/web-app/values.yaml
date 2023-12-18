@@ -125,5 +125,6 @@ org:
   project: ""
 
 vaultSecret:
+  enabled: false
   destination: ""
   path: ""
