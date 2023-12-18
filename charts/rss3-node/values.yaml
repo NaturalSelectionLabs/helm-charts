@@ -88,6 +88,15 @@ global:
     #   topologyKey: topology.kubernetes.io/zone
   #   whenUnsatisfiable: DoNotSchedule
 
+  # Indexer resources
+  indexerResources: { }
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
+  #  requests:
+  #    cpu: 50m
+  #    memory: 64Mi
+
 nameOverride: ""
 fullnameOverride: ""
 
