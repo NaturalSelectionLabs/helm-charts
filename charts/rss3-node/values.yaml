@@ -222,7 +222,6 @@ configs:
 ## Node Indexer
 indexers:
   - network: ethereum
-    chain: mainnet
     worker: fallback
     endpoint: https://rpc.ankr.com/eth
 

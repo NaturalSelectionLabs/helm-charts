@@ -136,9 +136,6 @@ Common indexer labels
 {{- if .network }}
 node.rss3.io/network: {{ .network }}
 {{- end }}
-{{- if .chain }}
-node.rss3.io/chain: {{ .chain }}
-{{- end }}
 {{- if .worker }}
 node.rss3.io/worker: {{ .worker }}
 {{- end }}
