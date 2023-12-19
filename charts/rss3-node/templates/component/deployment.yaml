@@ -1,8 +1,11 @@
 {{- range $key, $indexer :=  .Values.indexers }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "rss3-node.indexer.fullname" (merge (dict "context" $) $indexer)}}
+  labels:
+    {{- include "rss3-node.indexer.labels" (dict "context" $ "indexer" $indexer "component" "indexer") | nindent 4 }}
 spec:
   selector:
     matchLabels:
