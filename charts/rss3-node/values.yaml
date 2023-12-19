@@ -219,8 +219,8 @@ configs:
         access_key: ""
   annotations: {}
 
-## Node Indexer
-indexers:
+## Node workers
+workers:
   - network: ethereum
     worker: fallback
     endpoint: https://rpc.ankr.com/eth

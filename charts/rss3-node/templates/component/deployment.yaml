@@ -1,4 +1,4 @@
-{{- range $key, $indexer :=  .Values.indexers }}
+{{- range $key, $indexer :=  .Values.workers }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,7 +28,7 @@ spec:
       securityContext:
         {{- toYaml $.Values.global.podSecurityContext | nindent 8 }}
       containers:
-        - name: indexer
+        - name: worker
           securityContext:
             {{- toYaml $.Values.global.securityContext | nindent 12 }}
           image: "{{ $.Values.global.image.repository }}:{{ $.Values.global.image.tag | default $.Chart.AppVersion }}"

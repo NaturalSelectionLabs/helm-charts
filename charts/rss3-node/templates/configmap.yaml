@@ -19,6 +19,6 @@ data:
       rss:
     {{- toYaml .Values.additionalRSS | nindent 8}}
       decentralized:
-    {{- toYaml .Values.indexers | nindent 8}}
+    {{- toYaml .Values.workers | nindent 8}}
     database:
     {{- toYaml .Values.database | nindent 6}}
