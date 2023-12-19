@@ -51,13 +51,11 @@ spec:
               containerPort: {{ .Values.hub.service.port }}
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /healthcheck
-              port: http
+            tcpSocket:
+              port: 80
           readinessProbe:
-            httpGet:
-              path: /healthcheck
-              port: http
+            tcpSocket:
+              port: 80
           resources:
             {{- toYaml .Values.hub.resources | nindent 12 }}
           volumeMounts:
