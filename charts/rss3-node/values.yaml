@@ -220,10 +220,23 @@ configs:
   annotations: {}
 
 ## Node Indexer
-indexers:
-  - network: ethereum
-    worker: fallback
-    endpoint: https://rpc.ankr.com/eth
+indexers: []
+#  - network: ethereum
+#    worker: fallback
+#    endpoint: https://rpc.ankr.com/eth
+#    parameters:
+#      block_number_start: 14748840
+#    resources: {}
+
+#   Indexer resources
+#      resources:
+#        limits:
+#          cpu: 100m
+#          memory: 128Mi
+#        requests:
+#          cpu: 50m
+#        memory: 64Mi
+
 
 rsshub:
   enabled: false
