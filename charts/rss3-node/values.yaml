@@ -220,13 +220,13 @@ configs:
   annotations: {}
 
 ## Node Indexer
-indexers:
-  - network: ethereum
-    worker: fallback
-    endpoint: https://rpc.ankr.com/eth
-    parameters:
-      block_number_start: 14748840
-    resources: {}
+indexers: []
+#  - network: ethereum
+#    worker: fallback
+#    endpoint: https://rpc.ankr.com/eth
+#    parameters:
+#      block_number_start: 14748840
+#    resources: {}
 
 #   Indexer resources
 #      resources:
