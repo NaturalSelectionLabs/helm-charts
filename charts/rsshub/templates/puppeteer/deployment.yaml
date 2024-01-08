@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ include "rsshub.puppeteer.fullname" . }}
   labels:
-    {{- include "rsshub.labels" . | nindent 4 }}
+    {{- include "rsshub.puppeteer.labels" . | nindent 4 }}
     app.kubernetes.io/version: {{ .Values.puppeteer.image.tag | quote }}
 spec:
   {{- if not .Values.puppeteer.autoscaling.enabled }}
