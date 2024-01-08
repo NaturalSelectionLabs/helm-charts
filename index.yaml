@@ -289,6 +289,16 @@ entries:
   rsshub:
   - apiVersion: v2
     appVersion: "2023-11-30"
+    created: "2024-01-08T08:50:12.530896064Z"
+    description: A Helm chart for Kubernetes
+    digest: fbb5e28fc3163125f68cd954f17b86fbe9c10a6a0ffbd350b2997f117d399047
+    name: rsshub
+    type: application
+    urls:
+    - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/rsshub-0.2.3/rsshub-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
+    appVersion: "2023-11-30"
     created: "2024-01-08T08:42:39.339611445Z"
     description: A Helm chart for Kubernetes
     digest: a4f39ad6084776dccd590884ba849ab44124cbb38ab909dd86e3fb282dea7190
@@ -578,4 +588,4 @@ entries:
     urls:
     - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/web-app-0.0.1/web-app-0.0.1.tgz
     version: 0.0.1
-generated: "2024-01-08T08:42:39.339776862Z"
+generated: "2024-01-08T08:50:12.531324114Z"
