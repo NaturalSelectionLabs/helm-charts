@@ -60,7 +60,7 @@ spec:
           {{- end }}
           {{- if .Values.puppeteer.resources}}
           resources:
-          {{- toYaml .Values.puppeteer.resources | nindent 10 }}
+          {{- toYaml .Values.puppeteer.resources | nindent 12 }}
           {{- end }}
       {{- with .Values.puppeteer.extraContainers }}
       {{- toYaml . | nindent 6 }}
