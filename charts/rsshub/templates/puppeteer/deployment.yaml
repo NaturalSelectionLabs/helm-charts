@@ -5,7 +5,6 @@ metadata:
   name: {{ include "rsshub.puppeteer.fullname" . }}
   labels:
     {{- include "rsshub.puppeteer.labels" . | nindent 4 }}
-    app.kubernetes.io/version: {{ .Values.puppeteer.image.tag | quote }}
 spec:
   {{- if not .Values.puppeteer.autoscaling.enabled }}
   replicas: {{ .Values.puppeteer.replicaCount }}

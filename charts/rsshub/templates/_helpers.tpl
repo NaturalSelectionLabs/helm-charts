@@ -135,8 +135,6 @@ Common labels
 {{- define "rsshub.puppeteer.labels" -}}
 helm.sh/chart: {{ include "rsshub.chart" . }}
 {{ include "rsshub.puppeteer.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
+app.kubernetes.io/version: {{ .Values.puppeteer.image.tag | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
