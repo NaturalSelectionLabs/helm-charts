@@ -128,3 +128,15 @@ Selector labels
 app.kubernetes.io/name: {{ include "rsshub.name" . }}-{{ .Values.puppeteer.name }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "rsshub.puppeteer.labels" -}}
+helm.sh/chart: {{ include "rsshub.chart" . }}
+{{ include "rsshub.puppeteer.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
