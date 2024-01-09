@@ -45,6 +45,11 @@ env:
   CACHE_TYPE: redis
   CACHE_EXPIRE: '300'
   CACHE_CONTENT_EXPIRE: '3600'
+envFrom: []
+# - configMapRef:
+#     name: config-map-name
+# - secretRef:
+#     name: secret-name
 
 serviceAccount:
   # Specifies whether a service account should be created
