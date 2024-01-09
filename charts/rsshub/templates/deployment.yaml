@@ -51,7 +51,7 @@ spec:
             - name: PUPPETEER_WS_ENDPOINT
               value: {{ printf "ws://%s:%v" (include "rsshub.puppeteer.fullname" .) .Values.puppeteer.containerPort }}
             {{- end }}
-          {{- with .Values.redis.envFrom }}
+          {{- with .Values.envFrom }}
           envFrom:
           {{- toYaml . | nindent 8 }}
           {{- end }}
