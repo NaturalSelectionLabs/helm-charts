@@ -1,6 +1,3 @@
-{{- if not (eq (or .Values.redis.enabled (ne .Values.env.REDIS_URL ""))  (eq .Values.env.CACHE_TYPE "redis")) }}
-  {{- fail (printf "Redis enabled and env CACHE_TYPE not matched") -}}
-{{- end }}
 ---
 apiVersion: apps/v1
 kind: Deployment
