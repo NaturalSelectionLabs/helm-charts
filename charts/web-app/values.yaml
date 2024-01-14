@@ -79,6 +79,8 @@ ingressRoute:
     - websecure
   routes:
     - Host(`chart-example.local`)
+  middlewares: []
+  #  - "traefik-forward-auth"
 
   tls: {}
   # secretName: chart-example-tls

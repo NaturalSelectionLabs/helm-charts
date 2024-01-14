@@ -25,6 +25,12 @@ spec:
         - name: {{ $fullName }}
           port: {{ $svcPort }}
   {{- end }}
+  {{- if .Values.ingressRoute.middlewares }}
+      middlewares:
+      {{- range $middleware := .Values.ingressRoute.middlewares }}
+        - name: {{ $middleware | quote }}
+      {{- end }}
+  {{- end}}
   {{- if .Values.ingressRoute.tls }}
   tls:
     {{- with .Values.ingressRoute.tls }}
