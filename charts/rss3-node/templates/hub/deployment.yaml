@@ -22,7 +22,7 @@ spec:
     metadata:
       annotations:
         checksum/configmap: {{ include "rss3-node.globalConfigCheckSum" .}}
-      {{- with .Values.hub.podAnnotations }}
+      {{- with (mergeOverwrite (deepCopy .Values.global.podAnnotations) .Values.hub.podAnnotations) }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:

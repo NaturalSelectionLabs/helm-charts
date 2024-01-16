@@ -31,9 +31,6 @@ data:
   []
     {{- end }}
     database:
-    {{- toYaml .Values.database | nindent 6}}
+    {{- toYaml .Values.database | nindent 6 }}
     stream:
-      enable: false
-      driver: kafka
-      topic: rss3.node.feeds
-      uri: localhost:9092
+    {{- toYaml .Values.stream | nindent 6 }}
