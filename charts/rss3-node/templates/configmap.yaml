@@ -34,3 +34,5 @@ data:
     {{- toYaml .Values.database | nindent 6 }}
     stream:
     {{- toYaml .Values.stream | nindent 6 }}
+    observability:
+    {{- toYaml .Values.observability | nindent 6}}
