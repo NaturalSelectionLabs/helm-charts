@@ -140,3 +140,10 @@ node.rss3.io/network: {{ .network }}
 node.rss3.io/worker: {{ .worker }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create rss3-node hub name and version as used by the chart label.
+*/}}
+{{- define "rss3-node.broadcaster.fullname" -}}
+{{- printf "%s-%s" (include "rss3-node.fullname" .) .Values.broadcaster.name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
