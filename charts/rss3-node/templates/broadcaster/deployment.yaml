@@ -1,3 +1,4 @@
+{{- if .Values.broadcaster.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -25,7 +26,7 @@ spec:
       {{- end }}
       labels:
         {{- include "rss3-node.labels" (dict "context" . "component" .Values.broadcaster.name "name" .Values.broadcaster.name) | nindent 8 }}
-	{{- with .Values.broadcaster.podLabels }}
+ {{- with .Values.broadcaster.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
@@ -72,3 +73,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+{{- end }}
