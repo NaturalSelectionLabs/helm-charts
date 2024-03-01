@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   geth-exporter:
   - apiVersion: v2
+    appVersion: v0.1.1
+    created: "2024-03-01T05:25:14.353131986Z"
+    description: A Helm chart for Kubernetes
+    digest: da25a20b313a58bc1d8b3cd802eb651767dc68f4c6feedc20842e2d2be3da61d
+    keywords:
+    - metric
+    - monitoring
+    - prometheus
+    name: geth-exporter
+    type: application
+    urls:
+    - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/geth-exporter-0.1.2/geth-exporter-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: v0.1.0
     created: "2024-03-01T04:30:45.868256111Z"
     description: A Helm chart for Kubernetes
@@ -747,4 +761,4 @@ entries:
     urls:
     - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/web-app-0.0.1/web-app-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-01T04:30:45.868414415Z"
+generated: "2024-03-01T05:25:14.353297604Z"
