@@ -550,6 +550,17 @@ entries:
     urls:
     - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/rsshub-0.1.0/rsshub-0.1.0.tgz
     version: 0.1.0
+  snowflake-id:
+  - apiVersion: v2
+    appVersion: main
+    created: "2024-07-09T02:46:08.219544743Z"
+    description: A Helm chart for Kubernetes
+    digest: a846ec19de24606d235619a1c963aaae31db13a49652fe5690988f35ac5d0f79
+    name: snowflake-id
+    type: application
+    urls:
+    - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/snowflake-id-0.1.0/snowflake-id-0.1.0.tgz
+    version: 0.1.0
   web-app:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -761,4 +772,4 @@ entries:
     urls:
     - https://github.com/NaturalSelectionLabs/helm-charts/releases/download/web-app-0.0.1/web-app-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-01T05:25:14.353297604Z"
+generated: "2024-07-09T02:46:08.219922701Z"
