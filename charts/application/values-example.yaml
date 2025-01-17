@@ -1,0 +1,74 @@
+nameOverride: "app"
+
+# github repository, for example: RSSNext/follow-server 
+repoUrl: "RSSNext/follow-server"
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+service:
+  port: 80
+
+env:
+  # set the environment variables directly
+  data:
+    NODE_ENV: production
+  # set the environment variables from a secret
+  secret:
+    # vault path, eg: kv/data/follow/follow-server
+    vaultPath: "kv/data/follow/follow-server"
+    data:
+      # key is the name of the environment variable
+      # value <xx> will be replaced with the value from the vault
+      POSTGRES_USER: '<POSTGRES_USER>'
+      POSTGRES_PASSWORD: '<POSTGRES_PASSWORD>'
+
+ingress:
+  enabled: true
+  hosts:
+    - host: chart-example.local
+      # set tls to true to enable tls, will apply for a certificate automatically
+      tls: true
+      paths:
+        - path: /
+
+resources: 
+  limits:
+    cpu: 0.1
+    memory: 256Mi
+  requests:
+    cpu: 0.1
+    memory: 256Mi
+
+healthcheck:
+  enabled: true
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: http
+  startupProbe:
+    httpGet:
+      path: /health
+      port: http
+
+strategy:
+  # Recreate: will delete the old pod and create a new one
+  # RollingUpdate: will replace the old pod with the new one
+  type: RollingUpdate
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
