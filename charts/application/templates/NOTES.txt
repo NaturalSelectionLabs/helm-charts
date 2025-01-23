@@ -1,4 +1,4 @@
-Thank you for installing {{ include "application.name" . }}.
+Thank you for installing {{ include "application.fullname" . }}.
 
 {{- if .Values.repoUrl }}
 GitHub Repository: {{ .Values.repoUrl }}
@@ -65,7 +65,7 @@ NOTE: It may take a few minutes for the LoadBalancer IP to be available.
 {{- else if contains "ClusterIP" .Values.service.type }}
 To access your application using port-forward:
 
-  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "application.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
+  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "application.fullname" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
   export CONTAINER_PORT=$(kubectl get pod --namespace {{ .Release.Namespace }} $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
 

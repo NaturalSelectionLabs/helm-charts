@@ -44,7 +44,7 @@ spec:
         - name: {{ include "application.fullname" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.service.port }}
           ports:
@@ -64,13 +64,69 @@ spec:
             - secretRef:
                 name: {{ include "application.fullname" . }}
           {{- end }}
-          {{- if .Values.healthcheck.enabled }}
+          {{- with .Values.healthcheck }}
+          {{- if .enabled }}
           livenessProbe:
-            {{- toYaml .Values.healthcheck.livenessProbe | nindent 12 }}
+            {{- if .livenessProbe }}
+            {{- if .livenessProbe.tcpSocket }}
+            tcpSocket:
+              port: http
+            {{- else if .livenessProbe.httpGet }}
+            httpGet:
+              port: {{ .livenessProbe.httpGet.port | default "http" }}
+              path: {{ .livenessProbe.httpGet.path }}
+              scheme: {{ .livenessProbe.httpGet.scheme | default "HTTP" }}
+            {{- end }}
+            {{- else }}
+            tcpSocket:
+              port: http
+            {{- end }}
+            initialDelaySeconds: {{ .livenessProbe.initialDelaySeconds | default 0 }}
+            periodSeconds: {{ .livenessProbe.periodSeconds | default 10 }}
+            timeoutSeconds: {{ .livenessProbe.timeoutSeconds | default 5 }}
+            successThreshold: {{ .livenessProbe.successThreshold | default 1 }}
+            failureThreshold: {{ .livenessProbe.failureThreshold | default 3 }}
           readinessProbe:
-            {{- toYaml .Values.healthcheck.readinessProbe | nindent 12 }}
+            {{- if .readinessProbe }}
+            {{- if .readinessProbe.tcpSocket }}
+            tcpSocket:
+              port: {{ .readinessProbe.tcpSocket.port | default "http" }}
+            {{- else if .readinessProbe.httpGet }}
+            httpGet:
+              port: {{ .readinessProbe.httpGet.port | default "http" }}
+              path: {{ .readinessProbe.httpGet.path }}
+              scheme: {{ .readinessProbe.httpGet.scheme | default "HTTP" }}
+            {{- end}}
+            {{- else}}
+            tcpSocket:
+              port: http
+            {{- end }}
+            initialDelaySeconds: {{ .readinessProbe.initialDelaySeconds | default 0 }}
+            periodSeconds: {{ .readinessProbe.periodSeconds | default 10 }}
+            timeoutSeconds: {{ .readinessProbe.timeoutSeconds | default 5 }}
+            successThreshold: {{ .readinessProbe.successThreshold | default 1 }}
+            failureThreshold: {{ .readinessProbe.failureThreshold | default 3 }}
           startupProbe:
-            {{- toYaml .Values.healthcheck.startupProbe | nindent 12 }}
+            {{- if .startupProbe }}
+            {{- if .startupProbe.tcpSocket }}
+            tcpSocket:
+              port: {{ .startupProbe.tcpSocket.port | default "http" }}
+            {{- else if .startupProbe.httpGet }}
+            httpGet:
+              port: {{ .startupProbe.httpGet.port | default "http" }}
+              path: {{ .startupProbe.httpGet.path }}
+              scheme: {{ .startupProbe.httpGet.scheme | default "HTTP" }}
+            {{- end }}
+            {{- else }}
+            tcpSocket:
+              port: http
+            {{- end }}
+            initialDelaySeconds: {{ .startupProbe.initialDelaySeconds | default 0 }}
+            periodSeconds: {{ .startupProbe.periodSeconds | default 10 }}
+            timeoutSeconds: {{ .startupProbe.timeoutSeconds | default 5 }}
+            successThreshold: {{ .startupProbe.successThreshold | default 1 }}
+            failureThreshold: {{ .startupProbe.failureThreshold | default 3 }}
+          {{- end }}
           {{- end }}
           {{- if .Values.resources }}
           resources:

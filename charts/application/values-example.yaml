@@ -1,4 +1,4 @@
-nameOverride: "app"
+nameOverride: "nginx"
 
 # github repository, for example: RSSNext/follow-server 
 repoUrl: "RSSNext/follow-server"
@@ -50,15 +50,15 @@ healthcheck:
   enabled: true
   livenessProbe:
     httpGet:
-      path: /health
+      path: /
       port: http
   readinessProbe:
     httpGet:
-      path: /health
+      path: /
       port: http
   startupProbe:
     httpGet:
-      path: /health
+      path: /
       port: http
 
 strategy:

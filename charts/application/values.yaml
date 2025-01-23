@@ -110,30 +110,33 @@ ingress:
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 healthcheck:
   enabled: true
-  livenessProbe:
-    tcpSocket:
-      port: http
-    initialDelaySeconds: 0
-    periodSeconds: 10
-    timeoutSeconds: 3
-    successThreshold: 1
-    failureThreshold: 3
-  readinessProbe:
-    tcpSocket:
-      port: http
-    initialDelaySeconds: 0
-    periodSeconds: 10
-    timeoutSeconds: 3
-    successThreshold: 1
-    failureThreshold: 3
-  startupProbe:
-    tcpSocket:
-      port: http
-    initialDelaySeconds: 0
-    periodSeconds: 10
-    timeoutSeconds: 3
-    successThreshold: 1
-    failureThreshold: 3
+  livenessProbe: {}
+  readinessProbe: {}
+  startupProbe: {}
+  # livenessProbe:
+  #   tcpSocket:
+  #     port: http
+  #   initialDelaySeconds: 0
+  #   periodSeconds: 10
+  #   timeoutSeconds: 3
+  #   successThreshold: 1
+  #   failureThreshold: 3
+  # readinessProbe:
+  #   tcpSocket:
+  #     port: http
+  #   initialDelaySeconds: 0
+  #   periodSeconds: 10
+  #   timeoutSeconds: 3
+  #   successThreshold: 1
+  #   failureThreshold: 3
+  # startupProbe:
+  #   tcpSocket:
+  #     port: http
+  #   initialDelaySeconds: 0
+  #   periodSeconds: 10
+  #   timeoutSeconds: 3
+  #   successThreshold: 1
+  #   failureThreshold: 3
 
 # This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
